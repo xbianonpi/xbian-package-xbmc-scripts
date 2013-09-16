@@ -1,0 +1,9 @@
+e8eaad87f02e2c6d5afd0b81b226d6d3  etc/init/xbmc.conf
+52aa2aa28b47879ccfbdf965511fb2b9  etc/init/xbmc-done.conf
+9b0d13b1a5489c79b0f0a14fd68f8208  etc/init/xbmc-exits.conf
+ff30f23dbf5a29653c92ce8c23da9fca  etc/init/xbmc-failed-start.conf
+140262fc443fddb21a6d7ac97dd8bcf8  etc/init/xbmc-kill-splash.conf
+dd196d7e830789abdb6dea022a7624b5  etc/init/xbmc-loaded.conf
+744f42dd4f3b091b8ff0e950c0ae2a7a  etc/init/xbmc-preload.conf
+ab72853dd260a3fbd917ce200cc92b65  etc/init/xbmc-screensaver.conf
+f24168df0db4652864ec52352cfb7b9f  var/tmp/xbmc

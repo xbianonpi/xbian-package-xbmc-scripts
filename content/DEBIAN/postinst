@@ -1,0 +1,46 @@
+#!/bin/bash
+
+if [[ $1 == "configure" ]]; then
+
+    [ -e /etc/default/xbmc ] || mv /var/tmp/xbmc /etc/default/xbmc
+
+    if [ -e /var/tmp/xbmc ]; then
+        if grep -q "WAITFOR=" /etc/default/xbmc; then
+            us="$(grep WAITFOR= /etc/default/xbmc | grep -v 'e.g.' )"
+            eval $(echo "sed -i 's%WAITFOR=\"\"%$us%' /var/tmp/xbmc")
+        fi
+        if grep -q "PPLAYER=" /etc/default/xbmc; then
+            us=$(grep PPLAYER= /etc/default/xbmc | tr "'" "\"")
+            eval $(echo "sed -i 's%PPLAYER=\"-3\"%$us%' /var/tmp/xbmc")
+        fi
+        if grep -q "PSAVER=" /etc/default/xbmc; then
+            us=$(grep PSAVER= /etc/default/xbmc | tr "'" "\"")
+            eval $(echo "sed -i 's%PSAVER=\"7\"%$us%' /var/tmp/xbmc")
+        fi
+        if grep -q "SCREENOFF=" /etc/default/xbmc; then
+            us=$(grep SCREENOFF= /etc/default/xbmc)
+            eval $(echo "sed -i 's%SCREENOFF=yes%$us%' /var/tmp/xbmc")
+        fi
+        if grep -q "DPRIORITY=" /etc/default/xbmc; then
+            us=$(grep DPRIORITY= /etc/default/xbmc)
+            eval $(echo "sed -i 's%DPRIORITY=yes%$us%' /var/tmp/xbmc")
+        fi
+        if grep -q "AFTER=" /etc/default/xbmc; then
+            us=$(grep AFTER= /etc/default/xbmc)
+            eval $(echo "sed -i 's%AFTER=3%$us%' /var/tmp/xbmc")
+        fi
+
+        mv /var/tmp/xbmc /etc/default/xbmc
+    fi
+    :
+
+elif [ $1 = triggered ]; then
+
+    :
+#        if [ -f "/tmp/startxbmc" ]; then
+#                [ -e /etc/init/xbmc.conf ] || service xbmc start > /dev/null 2>&1
+#                [ -e /etc/init/xbmc.conf ] && start -n xbmc
+#                rm /tmp/startxbmc
+#        fi
+
+fi

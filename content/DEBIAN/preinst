@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ $1 == "install" -o $1 == "upgrade" ]; then
+
+:
+
+#        if ! test -e /run/noreboot && pgrep xbmc.bin > /dev/null; then
+#                [ -e /etc/init/xbmc.conf ] && stop -q xbmc
+#                touch /tmp/startxbmc
+#        fi
+
+
+fi
