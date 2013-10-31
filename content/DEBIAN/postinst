@@ -19,7 +19,7 @@ if [[ $1 == "configure" ]]; then
         fi
         if grep -q "SCREENOFF=" /etc/default/xbmc; then
             us=$(grep SCREENOFF= /etc/default/xbmc)
-            eval $(echo "sed -i 's%SCREENOFF=yes%$us%' /var/tmp/xbmc")
+            eval $(echo "sed -i 's%SCREENOFF=no%$us%' /var/tmp/xbmc")
         fi
         if grep -q "DPRIORITY=" /etc/default/xbmc; then
             us=$(grep DPRIORITY= /etc/default/xbmc)
@@ -28,6 +28,10 @@ if [[ $1 == "configure" ]]; then
         if grep -q "AFTER=" /etc/default/xbmc; then
             us=$(grep AFTER= /etc/default/xbmc)
             eval $(echo "sed -i 's%AFTER=3%$us%' /var/tmp/xbmc")
+        fi
+        if grep -q "XBMCEXITON=" /etc/default/xbmc; then
+            us=$(grep XBMCEXITON= /etc/default/xbmc)
+            eval $(echo "sed -i 's%XBMCEXITON=no%$us%' /var/tmp/xbmc")
         fi
 
         mv /var/tmp/xbmc /etc/default/xbmc

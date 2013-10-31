@@ -8,10 +8,15 @@ WAITFOR=""
 PPLAYER="-3"
 PSAVER="7"
 
-# turn screen off on xbmc entering screensaver (after 'AFTER' minutes)
 
-SCREENOFF=yes
+# turn CEC capable TV off on xbmc entering screensaver (after 'AFTER' minutes)
+
+SCREENOFF=no
 AFTER=3
+
+# turn CEC capable TV on on xbmc exit
+
+XBMCEXITON=no
 
 # dynamic priority handling of xbmc.bin process
 
