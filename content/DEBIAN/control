@@ -1,11 +1,11 @@
 Origin: XBian
 Package: xbian-package-xbmc-scripts
-Version: 1.0.0-2
+Version: 1.0.1-13a
 Section: video
 Priority: optional
 Architecture: armhf
-Depends: xbian-package-xbmc (>=2.9-10.9)
+Suggests: xbian-package-xbmc
 Replaces: xbian-package-xbmc
-Breaks: xbian-update (<<1.0-1.2)
+Breaks: xbian-update (<<1.0-1.2), xbian-package-xbmc (<<2.9-10.9)
 Maintainer: Koenkk <development@xbian.org>
-Description: Frodo nightly.
+Description: XBian XBMC upstart scripts.
