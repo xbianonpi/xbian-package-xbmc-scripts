@@ -33,10 +33,24 @@ if [[ $1 == "configure" ]]; then
             us=$(grep XBMCEXITON= /etc/default/xbmc)
             eval $(echo "sed -i 's%XBMCEXITON=no%$us%' /var/tmp/xbmc")
         fi
+        if grep -q "SCROFFHALT=" /etc/default/xbmc; then
+            us=$(grep SCROFFHALT= /etc/default/xbmc)
+            eval $(echo "sed -i 's%SCROFFHALT=3%$us%' /var/tmp/xbmc")
+        fi
+        if grep -q "SCROFFRUN=" /etc/default/xbmc; then
+            us=$(grep SCROFFRUN= /etc/default/xbmc)
+            eval $(echo "sed -i 's%SCROFFRUN=no%$us%' /var/tmp/xbmc")
+        fi
 
         mv /var/tmp/xbmc /etc/default/xbmc
     fi
     :
+
+    if [ -n "$(dpkg --get-selections raspi-config 2>/dev/null)" ]; then 
+        
+        [ -e /tmp/xbmc.force.auto ] || echo manual >> /etc/init/xbmc.override
+        rm -f /tmp/xbmc.force.auto
+    fi
 
 elif [ $1 = triggered ]; then
 
@@ -48,3 +62,5 @@ elif [ $1 = triggered ]; then
 #        fi
 
 fi
+
+exit 0

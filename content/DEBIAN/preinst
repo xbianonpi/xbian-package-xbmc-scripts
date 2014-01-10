@@ -4,10 +4,10 @@ if [ $1 == "install" -o $1 == "upgrade" ]; then
 
 :
 
-#        if ! test -e /run/noreboot && pgrep xbmc.bin > /dev/null; then
-#                [ -e /etc/init/xbmc.conf ] && stop -q xbmc
-#                touch /tmp/startxbmc
-#        fi
-
+    if [ -e /etc/init/xbmc-preload.conf ]; then
+        { [ ! -e /etc/init/xbmc.override ] || ! grep -qw manual /etc/init/xbmc.override; } && touch /tmp/xbmc.force.auto
+    fi
 
 fi
+
+exit 0

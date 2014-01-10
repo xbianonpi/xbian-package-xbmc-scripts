@@ -18,6 +18,11 @@ AFTER=3
 
 XBMCEXITON=no
 
+# turn CEC capable TV off on system shutdown. also run my custom script called run.my.special.script.sh.
+
+SCROFFHALT=no
+SCROFFRUN='/run.my.special.script.sh'
+
 # dynamic priority handling of xbmc.bin process
 
 DPRIORITY=yes
