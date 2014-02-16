@@ -41,6 +41,10 @@ if [[ $1 == "configure" ]]; then
             us=$(grep SCROFFRUN= /etc/default/xbmc)
             eval $(echo "sed -i 's%SCROFFRUN=no%$us%' /var/tmp/xbmc")
         fi
+        if grep -q "HDMIPORT=" /etc/default/xbmc; then
+            us=$(grep HDMIPORT= /etc/default/xbmc)
+            eval $(echo "sed -i 's%HDMIPORT=0%$us%' /var/tmp/xbmc")
+        fi
 
         mv /var/tmp/xbmc /etc/default/xbmc
     fi

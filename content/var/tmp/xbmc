@@ -11,6 +11,8 @@ PSAVER="7"
 
 # turn CEC capable TV off on xbmc entering screensaver (after 'AFTER' minutes)
 
+HDMIPORT=0
+
 SCREENOFF=no
 AFTER=3
 
