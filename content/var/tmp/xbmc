@@ -16,16 +16,16 @@ HDMIPORT=0
 SCREENOFF=no
 AFTER=3
 
-# turn CEC capable TV on on xbmc exit
+# stop XBMC on TVOFF, start XBMC on TVON
+XBMCOFF=no
 
+# turn CEC capable TV on on xbmc exit
 XBMCEXITON=no
 
 # turn CEC capable TV off on system shutdown. also run my custom script called run.my.special.script.sh.
-
 SCROFFHALT=no
 SCROFFRUN='/run.my.special.script.sh'
 
 # dynamic priority handling of xbmc.bin process
-
 DPRIORITY=yes
 

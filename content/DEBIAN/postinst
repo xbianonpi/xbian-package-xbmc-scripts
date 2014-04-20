@@ -45,6 +45,10 @@ if [[ $1 == "configure" ]]; then
             us=$(grep HDMIPORT= /etc/default/xbmc)
             eval $(echo "sed -i 's%HDMIPORT=0%$us%' /var/tmp/xbmc")
         fi
+        if grep -q "XBMCOFF=" /etc/default/xbmc; then
+            us=$(grep XBMCOFF= /etc/default/xbmc)
+            eval $(echo "sed -i 's%XBMCOFF=no%$us%' /var/tmp/xbmc")
+        fi
 
         mv /var/tmp/xbmc /etc/default/xbmc
     fi
