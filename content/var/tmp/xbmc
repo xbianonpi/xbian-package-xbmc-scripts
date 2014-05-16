@@ -1,31 +1,30 @@
-# put name of all processes which xbmc should wait for before xbmc itself will be started
-# e.g. WAITFOR="mysqld process1 process2"
+# Configuration for XBMC
 
+# Put name of all processes which XBMC should wait for before it will be started.
+# e.g. WAITFOR="mysqld process1 process2"
 WAITFOR=""
 
-# niceness levels at XBMC playing content and while in screensaver mode
-
+# Niceness levels for XBMC while playing and while in screensaver is active.
 PPLAYER="-3"
 PSAVER="7"
 
-
-# turn CEC capable TV off on xbmc entering screensaver (after 'AFTER' minutes)
-
 HDMIPORT=0
-
+# Turn CEC capable TV off on xbmc entering screensaver (after 'AFTER' minutes)
 SCREENOFF=no
 AFTER=3
 
-# stop XBMC on TVOFF, start XBMC on TVON
+# Stop XBMC when the TV is turned off.  This will also start XBMC again when
+# it's turned on.
 XBMCOFF=no
 
-# turn CEC capable TV on on xbmc exit
+# Turn CEC capable TV on when XBMC exits.
 XBMCEXITON=no
 
-# turn CEC capable TV off on system shutdown. also run my custom script called run.my.special.script.sh.
+# Turn CEC capable TV off on system shutdown.  A (just one) custom script can
+# also be run.
 SCROFFHALT=no
 SCROFFRUN='/run.my.special.script.sh'
 
-# dynamic priority handling of xbmc.bin process
+# Enable dynamic priority handling of xbmc.bin process.
 DPRIORITY=yes
 
