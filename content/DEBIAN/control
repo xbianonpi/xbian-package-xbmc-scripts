@@ -1,11 +1,10 @@
 Origin: XBian
 Package: xbian-package-xbmc-scripts
-Version: 1.0.5-12
+Version: 1.0.7
 Section: video
 Priority: optional
 Architecture: armhf
 Depends: xbian-package-upstart-xbmc-bridge (>=1.1.0-6)
-Suggests: xbian-package-xbmc
 Replaces: xbian-package-xbmc
 Breaks: xbian-update (<<1.0-1.2), xbian-package-xbmc (<<2.9-10.9)
 Maintainer: mk01 <development@xbian.org>
