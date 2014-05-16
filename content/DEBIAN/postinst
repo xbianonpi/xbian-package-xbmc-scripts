@@ -5,50 +5,21 @@ if [[ $1 == "configure" ]]; then
     [ -e /etc/default/xbmc ] || mv /var/tmp/xbmc /etc/default/xbmc
 
     if [ -e /var/tmp/xbmc ]; then
-        if grep -q "WAITFOR=" /etc/default/xbmc; then
-            us="$(grep WAITFOR= /etc/default/xbmc | grep -v 'e.g.' )"
-            eval $(echo "sed -i 's%WAITFOR=\"\"%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "PPLAYER=" /etc/default/xbmc; then
-            us=$(grep PPLAYER= /etc/default/xbmc | tr "'" "\"")
-            eval $(echo "sed -i 's%PPLAYER=\"-3\"%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "PSAVER=" /etc/default/xbmc; then
-            us=$(grep PSAVER= /etc/default/xbmc | tr "'" "\"")
-            eval $(echo "sed -i 's%PSAVER=\"7\"%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "SCREENOFF=" /etc/default/xbmc; then
-            us=$(grep SCREENOFF= /etc/default/xbmc)
-            eval $(echo "sed -i 's%SCREENOFF=no%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "DPRIORITY=" /etc/default/xbmc; then
-            us=$(grep DPRIORITY= /etc/default/xbmc)
-            eval $(echo "sed -i 's%DPRIORITY=yes%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "AFTER=" /etc/default/xbmc; then
-            us=$(grep AFTER= /etc/default/xbmc)
-            eval $(echo "sed -i 's%AFTER=3%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "XBMCEXITON=" /etc/default/xbmc; then
-            us=$(grep XBMCEXITON= /etc/default/xbmc)
-            eval $(echo "sed -i 's%XBMCEXITON=no%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "SCROFFHALT=" /etc/default/xbmc; then
-            us=$(grep SCROFFHALT= /etc/default/xbmc)
-            eval $(echo "sed -i 's%SCROFFHALT=3%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "SCROFFRUN=" /etc/default/xbmc; then
-            us=$(grep SCROFFRUN= /etc/default/xbmc)
-            eval $(echo "sed -i 's%SCROFFRUN=no%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "HDMIPORT=" /etc/default/xbmc; then
-            us=$(grep HDMIPORT= /etc/default/xbmc)
-            eval $(echo "sed -i 's%HDMIPORT=0%$us%' /var/tmp/xbmc")
-        fi
-        if grep -q "XBMCOFF=" /etc/default/xbmc; then
-            us=$(grep XBMCOFF= /etc/default/xbmc)
-            eval $(echo "sed -i 's%XBMCOFF=no%$us%' /var/tmp/xbmc")
-        fi
+        OPTIONS=$(grep -E "^\w+=.+" /var/tmp/xbmc)
+        ADVANCED_OPTIONS="USER HOME GROUP DAEMON DAEMON_ARGS DAEMON_LIRC PATH ZTEMPXBMC DEBUG"
+        ALL_OPTIONS="$OPTIONS $ADVANCED_OPTIONS"
+
+        for option in $ALL_OPTIONS; do
+            opt_name=${option%%=*}
+            if grep -q "^${opt_name}=" /etc/default/xbmc; then
+                old_opt_value=$(grep ^${opt_name}= /etc/default/xbmc | tr "'" "\"")
+                if grep -q "^${opt_name}=" /var/tmp/xbmc; then
+                    eval $(echo "sed -i 's%$option%$old_opt_value%' /var/tmp/xbmc")
+                else
+                    echo $old_opt_value >> /var/tmp/xbmc
+                fi
+            fi
+        done
 
         mv /var/tmp/xbmc /etc/default/xbmc
     fi
