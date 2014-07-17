@@ -1,6 +1,6 @@
 Origin: XBian
 Package: xbian-package-xbmc-scripts
-Version: 1.0.8-2
+Version: 1.0.10
 Section: video
 Priority: optional
 Architecture: armhf
