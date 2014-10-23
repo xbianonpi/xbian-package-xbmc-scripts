@@ -25,7 +25,7 @@ XBMCEXITON=no
 SCROFFHALT=no
 SCROFFRUN='/run.my.special.script.sh'
 
-# Enable dynamic priority handling of xbmc.bin process.
+# Enable dynamic priority handling of XBMC/Kodi process.
 DPRIORITY=yes
 
 # Disable overclocking (and overvolting) when the screensaver is started.
