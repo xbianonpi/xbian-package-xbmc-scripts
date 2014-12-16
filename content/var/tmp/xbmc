@@ -1,5 +1,5 @@
 # Configuration for XBMC
-DAEMON=$(test -d /home/xbian/.kodi && nm=kodi || nm=xbmc; echo /usr/local/lib/$nm/$nm.bin;)
+DAEMON=$(test -x /usr/local/lib/kodi/kodi.bin && nm=kodi || nm=xbmc; echo /usr/local/lib/$nm/$nm.bin;)
 
 # Put name of all processes which XBMC should wait for before it will be started.
 # e.g. WAITFOR="mysqld process1 process2"
