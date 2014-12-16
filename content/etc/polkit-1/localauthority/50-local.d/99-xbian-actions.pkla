@@ -1,6 +1,6 @@
 [Actions for xbmc user]
 Identity=unix-user:xbian
-Action=org.freedesktop.upower.*;org.freedesktop.consolekit.system.*;org.freedesktop.udisks.*;org.freedesktop.login1.*
+Action=org.freedesktop.upower.*;org.freedesktop.consolekit.system.*;org.freedesktop.udisks.filesystem-unmount-others;org.freedesktop.login1.*
 ResultAny=yes
 ResultInactive=yes
 ResultActive=yes
