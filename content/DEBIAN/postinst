@@ -5,8 +5,8 @@ if [[ $1 == "configure" ]]; then
     [ -e /etc/default/xbmc ] || mv /var/tmp/xbmc /etc/default/xbmc
 
     if [ -e /var/tmp/xbmc ]; then
-        OPTIONS=$(grep -E "^\w+=.+" /var/tmp/xbmc)
-        ADVANCED_OPTIONS="USER HOME GROUP DAEMON DAEMON_ARGS DAEMON_LIRC PATH ZTEMPXBMC DEBUG SCR_CPUFREQ_GOV"
+        OPTIONS=$(grep -E "^\w+=.+" /var/tmp/xbmc | grep -vw DAEMON)
+        ADVANCED_OPTIONS="USER HOME GROUP DAEMON_ARGS DAEMON_LIRC PATH ZTEMPXBMC DEBUG SCR_CPUFREQ_GOV"
         ALL_OPTIONS="$OPTIONS $ADVANCED_OPTIONS"
 
         for option in $ALL_OPTIONS; do
@@ -14,7 +14,7 @@ if [[ $1 == "configure" ]]; then
             if grep -q "^${opt_name}=" /etc/default/xbmc; then
                 old_opt_value=$(grep ^${opt_name}= /etc/default/xbmc | tr "'" "\"")
                 if grep -q "^${opt_name}=" /var/tmp/xbmc; then
-                    eval $(echo "sed -i 's%$option%$old_opt_value%' /var/tmp/xbmc")
+                    sed -i "s%${opt_name}=.*%${old_opt_value}%" /var/tmp/xbmc
                 else
                     echo $old_opt_value >> /var/tmp/xbmc
                 fi
