@@ -34,5 +34,5 @@ DPRIORITY=yes
 # It does so by changing the CPUFreq governor to "conservative", which doesn't
 # actually disable overclocking, but tries to set it to the minimum required
 # by current system load.
-SCR_OVERCLOCK_OFF="no"
+SCR_OVERCLOCK_OFF="yes"
 
