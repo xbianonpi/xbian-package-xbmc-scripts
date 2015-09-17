@@ -1,11 +1,11 @@
 Origin: XBian
 Package: xbian-package-xbmc-scripts
-Version: 1.2.4
+Version: 1.2.5
 Section: video
 Priority: optional
 Architecture: armhf
 Depends: xbian-package-upstart-xbmc-bridge (>=1.1.0-6), schedtool
 Replaces: xbian-package-xbmc
-Breaks: xbian-package-xbmc (<<2.9-10.9), xbian-update (<<20150114-2)
+Breaks: xbian-package-xbmc (<<2.9-10.9)
 Maintainer: mk01 <development@xbian.org>
 Description: XBian XBMC upstart scripts.
