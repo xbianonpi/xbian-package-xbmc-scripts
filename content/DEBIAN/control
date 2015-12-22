@@ -4,7 +4,7 @@ Version: 1.3.2
 Section: video
 Priority: optional
 Architecture: armhf
-Depends: xbian-package-upstart-xbmc-bridge (>=1.1.0-6), schedtool
+Depends: xbian-package-upstart-xbmc-bridge (>=1.1.0-6)
 Replaces: xbian-package-xbmc
 Breaks: xbian-package-xbmc (<<2.9-10.9)
 Maintainer: mk01 <development@xbian.org>
