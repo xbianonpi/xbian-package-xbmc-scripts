@@ -27,7 +27,7 @@ SCROFFHALT=no
 SCROFFRUN='/run.my.special.script.sh'
 
 # Enable dynamic priority handling of XBMC/Kodi process.
-DPRIORITY=yes
+DPRIORITY=no
 
 # Disable overclocking (and overvolting) when the screensaver is started.
 # When the screensaver is stopped, it will enable overclocking again.
