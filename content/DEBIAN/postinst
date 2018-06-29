@@ -2,7 +2,7 @@
 
 if [[ $1 == "configure" ]]; then
 
-    echo > /var/log/upstart/xbmc.log
+    [ -d /var/log/upstart ] && echo > /var/log/upstart/xbmc.log
 
     [ -e /etc/default/xbmc ] || mv /var/tmp/xbmc /etc/default/xbmc
 
