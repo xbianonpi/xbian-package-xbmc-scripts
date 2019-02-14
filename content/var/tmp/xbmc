@@ -1,32 +1,58 @@
-# Configuration for XBMC
+#
+# This is controlfile for XBMC/Kodi application. Most variables
+# can be set by Kodi's XBian config GUI. Please do not modify
+# this file manually unless you know what you are doing.
+#
+
 DAEMON=$(test -x /usr/local/lib/kodi/kodi.bin && nm=kodi || nm=xbmc; echo /usr/local/lib/$nm/$nm.bin;)
 
-# Put name of all processes which XBMC should wait for before it will be started.
-# e.g. WAITFOR="mysqld process1 process2"
+# Userdefined script will be run before XBMC/Kodi is starting or has been stopped,
+# or TV is turned on/off controlled by SCREENOFF variable. See template script
+# /usr/local/share/doc/xbmc/user-run.sh
+# Parameter 1: what, currently 'preload', 'preload' and 'screensaver'
+#           2: action, currently 'start' and 'stop'
+#
+USERRUN="/usr/local/sbin/user-run.sh"
+
+# Put name of all processes which XBMC/Kodi should wait for before it will be started.
+# e.g. WAITFOR="mysqld process1 process2". Please note, if process configured here does
+# not exist, start of Kodi will be delayed dramatically.
+#
 WAITFOR=""
 
-# Niceness levels for XBMC while playing and while in screensaver is active.
+# Niceness levels for XBMC/Kodi while playing and while in screensaver is active.
+#
 PPLAYER="-3"
 PSAVER="7"
 
-HDMIPORT=0
-# Turn CEC capable TV off on xbmc entering screensaver (after 'AFTER' minutes)
+# Turn CEC capable TV off on XBMC/Kodi entering screensaver (after 'AFTER' minutes)
+# If IGNOREPLAYER=yes, TV will be turned off even when media are currently played.
+# Userdefined script (see USERRUN) will be run with screensaver start/stop.
+#
 SCREENOFF=no
+IGNOREPLAYER=no
 AFTER=3
 
-# Stop XBMC when the TV is turned off.  This will also start XBMC again when
-# it's turned on.
+# Stop XBMC/Kodi when the CEC capable TV is turned off. This will also start
+# XBMC/Kodi again when it's turned on.
+# It should be noted that this option will set 'standby_pc_on_tv_standby' to
+# value 13009 in all peripheral_data/*.xml files of Kodi's profile
+#
 XBMCOFF=no
 
-# Turn CEC capable TV on when XBMC exits.
+# Turn CEC capable TV on when XBMC/Kodi exits.
+#
 XBMCEXITON=no
 
-# Turn CEC capable TV off on system shutdown.  A (just one) custom script can
-# also be run.
+# Turn CEC capable TV off on system shutdown.
+# Please note, the SCROFFRUN parameter does not longer exist, if any executable
+# script has been defined here, it has been moved into /lib/systemd/system-shutdown
+# folder and is started on shutdown AND reboot event.
+#
 SCROFFHALT=no
-SCROFFRUN='/run.my.special.script.sh'
 
 # Enable dynamic priority handling of XBMC/Kodi process.
+#
 DPRIORITY=no
 
 # Disable overclocking (and overvolting) when the screensaver is started.
@@ -34,5 +60,5 @@ DPRIORITY=no
 # It does so by changing the CPUFreq governor to "conservative", which doesn't
 # actually disable overclocking, but tries to set it to the minimum required
 # by current system load.
+#
 SCR_OVERCLOCK_OFF="yes"
-

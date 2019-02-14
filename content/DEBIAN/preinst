@@ -1,13 +1,19 @@
 #!/bin/bash
 
-if [ $1 == "install" -o $1 == "upgrade" ]; then
+if [ "$1" = install -o "$1" = upgrade ]; then
 
-:
+	if [ -e /etc/init/xbmc-preload.conf ]; then
+		{ [ ! -e /etc/init/xbmc.override ] || ! grep -qw manual /etc/init/xbmc.override; } && touch /tmp/xbmc.force.auto
+	fi
 
-    if [ -e /etc/init/xbmc-preload.conf ]; then
-        { [ ! -e /etc/init/xbmc.override ] || ! grep -qw manual /etc/init/xbmc.override; } && touch /tmp/xbmc.force.auto
-    fi
-
+	if [ -e /etc/default/xbmc ]; then
+		. /etc/default/xbmc
+		if [ -x "$SCROFFRUN" ]; then
+			mkdir -p /lib/systemd/system-shutdown
+			mv $SCROFFRUN /lib/systemd/system-shutdown
+			sed -i '/^SCROFFRUN=.*/d' /etc/default/xbmc
+		fi
+	fi
 fi
 
 exit 0
