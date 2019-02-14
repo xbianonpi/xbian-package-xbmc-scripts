@@ -1,47 +1,28 @@
 #!/bin/bash
 
-if [[ $1 == "configure" ]]; then
+if [ "$1" = configure ]; then
 
-    [ -d /var/log/upstart ] && echo > /var/log/upstart/xbmc.log
+	[ -d /var/log/upstart ] && echo > /var/log/upstart/xbmc.log
 
-    [ -e /etc/default/xbmc ] || mv /var/tmp/xbmc /etc/default/xbmc
+	ALL_OPTIONS=$(echo "$(sed 's/^[ \t]*//;/^#/d;/^$/d;s/=.*//' /var/tmp/xbmc) USER HOME GROUP DAEMON_ARGS DAEMON_LIRC PATH DEBUG SCR_CPUFREQ_GOV" | grep -vw 'DAEMON' | sort -u)
+	for option in $ALL_OPTIONS; do
+		opt_name=${option%%=*}
+		if grep -q "^${opt_name}=" /etc/default/xbmc; then
+			old_opt_value=$(grep ^${opt_name}= /etc/default/xbmc | tr "'" "\"")
+			if grep -q "^${opt_name}=" /var/tmp/xbmc; then
+				sed -i "s%${opt_name}=.*%${old_opt_value}%" /var/tmp/xbmc
+			else
+				echo $old_opt_value >> /var/tmp/xbmc
+			fi
+		fi
+	done
+	mv /var/tmp/xbmc /etc/default/xbmc
 
-    if [ -e /var/tmp/xbmc ]; then
-        OPTIONS=$(grep -E "^\w+=.+" /var/tmp/xbmc | grep -vw DAEMON)
-        ADVANCED_OPTIONS="USER HOME GROUP DAEMON_ARGS DAEMON_LIRC PATH ZTEMPXBMC DEBUG SCR_CPUFREQ_GOV"
-        ALL_OPTIONS="$OPTIONS $ADVANCED_OPTIONS"
+	if [ -n "$(dpkg --get-selections raspi-config 2>/dev/null)" ]; then
 
-        for option in $ALL_OPTIONS; do
-            opt_name=${option%%=*}
-            if grep -q "^${opt_name}=" /etc/default/xbmc; then
-                old_opt_value=$(grep ^${opt_name}= /etc/default/xbmc | tr "'" "\"")
-                if grep -q "^${opt_name}=" /var/tmp/xbmc; then
-                    sed -i "s%${opt_name}=.*%${old_opt_value}%" /var/tmp/xbmc
-                else
-                    echo $old_opt_value >> /var/tmp/xbmc
-                fi
-            fi
-        done
-
-        mv /var/tmp/xbmc /etc/default/xbmc
-    fi
-    :
-
-    if [ -n "$(dpkg --get-selections raspi-config 2>/dev/null)" ]; then 
-        
-        [ -e /tmp/xbmc.force.auto ] || echo manual >> /etc/init/xbmc.override
-        rm -f /tmp/xbmc.force.auto
-    fi
-
-elif [ $1 = triggered ]; then
-
-    :
-#        if [ -f "/tmp/startxbmc" ]; then
-#                [ -e /etc/init/xbmc.conf ] || service xbmc start > /dev/null 2>&1
-#                [ -e /etc/init/xbmc.conf ] && start -n xbmc
-#                rm /tmp/startxbmc
-#        fi
-
+		[ -e /tmp/xbmc.force.auto ] || echo manual >> /etc/init/xbmc.override
+		rm -f /tmp/xbmc.force.auto
+	fi
 fi
 
 exit 0
