@@ -4,10 +4,10 @@ if [ "$1" = configure ]; then
 
 	[ -d /var/log/upstart ] && echo > /var/log/upstart/xbmc.log
 
-	ALL_OPTIONS=$(echo "$(sed 's/^[ \t]*//;/^#/d;/^$/d;s/=.*//' /var/tmp/xbmc) USER HOME GROUP DAEMON_ARGS DAEMON_LIRC PATH DEBUG SCR_CPUFREQ_GOV" | grep -vw 'DAEMON' | sort -u)
+	ALL_OPTIONS=$(echo "$(sed 's/^[ \t]*//;/^#/d;/^$/d;s/=.*//' /var/tmp/xbmc) USER HOME GROUP DAEMON_ARGS DAEMON_LIRC PATH DEBUG SCR_CPUFREQ_GOV" | sort -u)
 	for option in $ALL_OPTIONS; do
 		opt_name=${option%%=*}
-		if grep -q "^${opt_name}=" /etc/default/xbmc; then
+		if grep -qs "^${opt_name}=" /etc/default/xbmc; then
 			old_opt_value=$(grep ^${opt_name}= /etc/default/xbmc | tr "'" "\"")
 			if grep -q "^${opt_name}=" /var/tmp/xbmc; then
 				sed -i "s%${opt_name}=.*%${old_opt_value}%" /var/tmp/xbmc
