@@ -4,7 +4,11 @@
 # this file manually unless you know what you are doing.
 #
 
+# Please keep following three variables untouched
+#
 DAEMON=$(test -x /usr/local/lib/kodi/kodi.bin && nm=kodi || nm=xbmc; echo /usr/local/lib/$nm/$nm.bin;)
+OSDNAME=
+SPOTS=
 
 # Userdefined script will be run before XBMC/Kodi is starting or has been stopped,
 # or TV is turned on/off controlled by SCREENOFF variable. See template script
@@ -20,11 +24,6 @@ USERRUN="/usr/local/sbin/user-run.sh"
 #
 WAITFOR=""
 
-# Niceness levels for XBMC/Kodi while playing and while in screensaver is active.
-#
-PPLAYER="-3"
-PSAVER="7"
-
 # Turn CEC capable TV off on XBMC/Kodi entering screensaver (after 'AFTER' minutes)
 # If IGNOREPLAYER=yes, TV will be turned off even when media are currently played.
 # Userdefined script (see USERRUN) will be run with screensaver start/stop.
@@ -34,13 +33,12 @@ IGNOREPLAYER=no
 AFTER=3
 
 # Stop XBMC/Kodi when the CEC capable TV is turned off. This will also start
-# XBMC/Kodi again when it's turned on.
-# It should be noted that this option will set 'standby_pc_on_tv_standby' to
-# value 13009 in all peripheral_data/*.xml files of Kodi's profile
+# XBMC/Kodi again when TV is turned on.
 #
 XBMCOFF=no
 
-# Turn CEC capable TV on when XBMC/Kodi exits.
+# Turn CEC capable TV on when XBMC/Kodi exits. IF XBMCOFF is set to yes, this variable
+# will be ignored
 #
 XBMCEXITON=no
 
@@ -54,6 +52,11 @@ SCROFFHALT=no
 # Enable dynamic priority handling of XBMC/Kodi process.
 #
 DPRIORITY=no
+
+# Niceness levels for XBMC/Kodi while playing and while in screensaver is active.
+#
+PPLAYER="-3"
+PSAVER="7"
 
 # Disable overclocking (and overvolting) when the screensaver is started.
 # When the screensaver is stopped, it will enable overclocking again.
