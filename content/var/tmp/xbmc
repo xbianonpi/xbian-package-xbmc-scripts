@@ -32,8 +32,10 @@ SCREENOFF=no
 IGNOREPLAYER=no
 AFTER=3
 
-# Stop XBMC/Kodi when the CEC capable TV is turned off. This will also start
-# XBMC/Kodi again when TV is turned on.
+# Stop XBMC/Kodi when the CEC capable TV is turned off or vice versa. This will also
+# start XBMC/Kodi again when TV is turned on or vice versa.
+# Please note that this option will set 'standby_pc_on_tv_standby' to value 13009
+# in all peripheral_data/*.xml files of Kodi's profile
 #
 XBMCOFF=no
 
