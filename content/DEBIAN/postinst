@@ -8,11 +8,11 @@ if [ "$1" = configure ]; then
 	for option in $ALL_OPTIONS; do
 		opt_name=${option%%=*}
 		if grep -qs "^${opt_name}=" /etc/default/xbmc; then
-			old_opt_value=$(grep ^${opt_name}= /etc/default/xbmc | tr "'" "\"")
-			if grep -q "^${opt_name}=" /var/tmp/xbmc; then
-				sed -i "s%${opt_name}=.*%${old_opt_value}%" /var/tmp/xbmc
+			if grep -qs "^${opt_name}=" /var/tmp/xbmc; then
+				old_opt_value=$(grep ^${opt_name}= /etc/default/xbmc | sed "s/\&/\\\&/g;s/'/\"/g")
+				( IFS=$'\n'; sed -i "s%^${opt_name}=.*%$old_opt_value%g" /var/tmp/xbmc; )
 			else
-				echo $old_opt_value >> /var/tmp/xbmc
+				grep "^${opt_name}=" /etc/default/xbmc | tr "'" "\"" >> /var/tmp/xbmc
 			fi
 		fi
 	done
