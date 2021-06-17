@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#   Copyright (C) 2008-2009 Team XBMC http://www.xbmc.org
+#   Copyright (C) 2008-2013 Team XBMC
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -16,6 +16,9 @@
 #   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from bluetooth import *
+import fcntl
+import bluetooth._bluetooth as _bt
+import array
 
 class HID:
     def __init__(self, bdaddress=None):
@@ -47,15 +50,22 @@ class HID:
     def listen(self):
         try:
             (self.client_csock, self.caddress) = self.csock.accept()
-            print "Accepted Control connection from %s" % self.caddress[0]
+            print("Accepted Control connection from %s" % self.caddress[0])
             (self.client_isock, self.iaddress) = self.isock.accept()
-            print "Accepted Interrupt connection from %s" % self.iaddress[0]
+            print("Accepted Interrupt connection from %s" % self.iaddress[0])
             self.connected = True
             return True
-        except Exception, e:
+        except Exception as e:
             self.connected = False
             return False
 
+    def get_local_address(self):
+        hci = BluetoothSocket( HCI )
+        fd  = hci.fileno()
+        buf = array.array('B', [0] * 96)
+        fcntl.ioctl(fd, _bt.HCIGETDEVINFO, buf, 1)
+        data = struct.unpack_from("H8s6B", buf.tostring())
+        return data[2:8][::-1]
 
     def get_control_socket(self):
         if self.connected:

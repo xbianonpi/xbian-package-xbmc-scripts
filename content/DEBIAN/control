@@ -4,7 +4,7 @@ Version: 1.9.7
 Section: video
 Priority: optional
 Architecture: armhf
-Depends: xbian-package-upstart-xbmc-bridge (>=1.1.0-6), cec-utils
+Depends: xbian-package-upstart-xbmc-bridge (>=1.1.0-6), cec-utils, python3
 Replaces: xbian-package-xbmc, xbian-package-config-shell
 Breaks: xbian-package-xbmc (<<2.9-10.9), xbian-package-config-shell (<<20190101-0)
 Maintainer: mk01 <development@xbian.org>

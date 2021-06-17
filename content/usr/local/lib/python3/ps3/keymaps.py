@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#   Copyright (C) 2008-2009 Team XBMC http://www.xbmc.org
+#   Copyright (C) 2008-2013 Team XBMC
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -18,12 +18,12 @@
 # PS3 Remote and Controller Keymaps
 
 keymap_remote = {
-    "16": 'power'  ,#EJECT
-    "64": None     ,#AUDIO
-    "65": None     ,#ANGLE
-    "63": None     ,#SUBTITLE
-    "0f": None     ,#CLEAR
-    "28": None     ,#TIME
+    "16": 'power'    ,#EJECT
+    "64": None       ,#AUDIO
+    "65": None       ,#ANGLE
+    "63": 'subtitle' ,#SUBTITLE
+    "0f": None       ,#CLEAR
+    "28": None       ,#TIME
 
     "00": 'one'   ,#1
     "01": 'two'   ,#2
@@ -79,57 +79,3 @@ keymap_remote = {
     "39": 'pause'     ,#PAUSE
     }
 
-
-SX_SQUARE   = 32768
-SX_X        = 16384
-SX_CIRCLE   = 8192
-SX_TRIANGLE = 4096
-SX_R1       = 2048
-SX_R2       = 512
-SX_R3       = 4
-SX_L1       = 1024
-SX_L2       = 256
-SX_L3       = 2
-SX_DUP      = 16
-SX_DDOWN    = 64
-SX_DLEFT    = 128
-SX_DRIGHT   = 32
-SX_SELECT   = 1
-SX_START    = 8
-
-SX_LSTICK_X  = 0
-SX_LSTICK_Y  = 1
-SX_RSTICK_X  = 2
-SX_RSTICK_Y  = 3
-
-# (map, key, amount index, axis)
-keymap_sixaxis = {
-    SX_X        : ('XG', 'A', 0, 0),
-    SX_CIRCLE   : ('XG', 'B', 0, 0),
-    SX_SQUARE   : ('XG', 'X', 0, 0),
-    SX_TRIANGLE : ('XG', 'Y', 0, 0),
-
-    SX_DUP      : ('XG', 'dpadup', 0, 0),
-    SX_DDOWN    : ('XG', 'dpaddown', 0, 0),
-    SX_DLEFT    : ('XG', 'dpadleft', 0, 0),
-    SX_DRIGHT   : ('XG', 'dpadright', 0, 0),
-
-    SX_START    : ('XG', 'start', 0, 0),
-    SX_SELECT   : ('XG', 'back', 0, 0),
-
-    SX_R1       : ('XG', 'white', 0, 0),
-    SX_R2       : ('XG', 'rightanalogtrigger', 6, 1),
-    SX_L2       : ('XG', 'leftanalogtrigger', 5, 1),
-    SX_L1       : ('XG', 'black', 0, 0),
-
-    SX_L3       : ('XG', 'leftthumbbutton', 0, 0),
-    SX_R3       : ('XG', 'rightthumbbutton', 0, 0),
-}
-
-# (data index, left map, left action, right map, right action)
-axismap_sixaxis = {
-    SX_LSTICK_X : ('XG', 'leftthumbstickleft' , 'leftthumbstickright'),
-    SX_LSTICK_Y : ('XG', 'leftthumbstickup'   , 'leftthumbstickdown'),
-    SX_RSTICK_X : ('XG', 'rightthumbstickleft', 'rightthumbstickright'),
-    SX_RSTICK_Y : ('XG', 'rightthumbstickup'  , 'rightthumbstickdown'),
-}
