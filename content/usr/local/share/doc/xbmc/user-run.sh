@@ -20,6 +20,8 @@ case $1 in
 		case $2 in
 			start)
 				;;
+			loaded)
+				;;
 			stop)
 				;;
 		esac
