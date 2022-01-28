@@ -14,6 +14,8 @@ if [ "$1" = install -o "$1" = upgrade ]; then
 			sed -i '/^SCROFFRUN=.*/d' /etc/default/xbmc
 		fi
 	fi
+
+	rm -f /run/.kodi-nolirc
 fi
 
 exit 0
