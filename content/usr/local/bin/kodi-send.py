@@ -66,7 +66,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "?pa:d:v", ["help", "host=", "port=", "keymap=", "button=", "mouse=", "log=", "loglevel=", "notification=", "action=", "delay="])
+        opts, args = getopt.getopt(sys.argv[1:], "?pa:d:v", ["help", "verbose", "host=", "port=", "keymap=", "button=", "mouse=", "log=", "loglevel=", "notification=", "action=", "delay="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(str(err)) # will print something like "option -a not recognized"
@@ -88,6 +88,8 @@ def main():
             port = int(a)
         elif o == "--keymap":
             keymap = a
+        elif o == "--verbose":
+            verbose = True
         elif o == "--button":
             actions.append({'type': TYPE_BUTTON, 'content': a})
         elif o == "--mouse":
@@ -113,7 +115,8 @@ def main():
         sys.exit(0)
 
     for action in actions:
-        print('Sending: %s' % action)
+        if verbose:
+            print('Sending: %s' % action)
         if action['type'] == TYPE_ACTION:
             packet = PacketACTION(actionmessage=action['content'], actiontype=ACTION_BUTTON)
         elif action['type'] == TYPE_BUTTON:
