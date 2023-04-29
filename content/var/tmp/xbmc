@@ -67,3 +67,13 @@ PSAVER="7"
 # by current system load.
 #
 SCR_OVERCLOCK_OFF="yes"
+
+# Here you can specify which audio system Kodi [3] should use and thus override
+# the specified order.
+# Possible values are alsa, pulseaudio, pipewire [1], alsa+pulseaudio and pi [2]
+# Notes:
+# [1] Currently not supported because it requires a graphical desktop
+# [2] Only for the Kodi Legacy versions for Raspberry Pi < 4
+# [3] Kodi v21 or higher required
+#
+AUDIO_BACKEND=""
