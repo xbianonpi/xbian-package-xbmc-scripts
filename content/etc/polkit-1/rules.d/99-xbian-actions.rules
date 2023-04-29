@@ -1,0 +1,13 @@
+// polkit rule to allow user xbian some actions
+// required for Kodi
+//
+// To use this file, copy it into /etc/polkit-1/rules.d/
+
+polkit.addRule(function(action, subject) {
+    if (subject.user == "xbian") {
+        if (action.id.indexOf("org.freedesktop.login1.") == 0 || action.id == "org.freedesktop.udisks2.filesystem-unmount-others") {
+            return polkit.Result.YES;
+        }
+    }
+    return polkit.Result.NOT_HANDLED;
+});
