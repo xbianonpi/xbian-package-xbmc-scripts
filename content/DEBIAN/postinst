@@ -21,6 +21,8 @@ if [ "$1" = configure ]; then
 	mkdir -p /usr/local/share/kodi/media
 	[ -e /usr/local/share/kodi/media/splash.h264 ] && rm -f /var/tmp/splash.h264 || mv /var/tmp/splash.h264 /usr/local/share/kodi/media
 
+	[ -e /usr/local/bin/xbian-ffplay ] && rm -f /var/tmp/xbian-ffplay || mv /var/tmp/xbian-ffplay /usr/local/bin
+
 	if [ -n "$(dpkg --get-selections raspi-config 2>/dev/null)" ]; then
 
 		[ -e /tmp/xbmc.force.auto ] || echo manual >> /etc/init/xbmc.override
