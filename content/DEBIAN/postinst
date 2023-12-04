@@ -28,6 +28,47 @@ if [ "$1" = configure ]; then
 		[ -e /tmp/xbmc.force.auto ] || echo manual >> /etc/init/xbmc.override
 		rm -f /tmp/xbmc.force.auto
 	fi
+
+	dpkg-trigger --no-await trigger-xbian-update-xbmc-scripts
+
+elif [ "$1" = triggered ]; then
+
+	KODI=$(dpkg-query -f='${Version}' --show xbian-package-xbmc 2>/dev/null | awk '{printf "%d", $1 }')
+	if [ "0$KODI" -gt 018 ]; then
+		cd /var/tmp
+		if ! LC_ALL=C wget -N --no-if-modified-since https://sourceforge.net/projects/xbian/files/xbian/kodi-splash.tar 2>&1 | grep -qE "file no newer|Not Found"; then
+			tar x --no-same-owner --file kodi-splash.tar --directory=/usr/local/share/kodi/media/
+			size=$(du -b kodi-splash.tar | awk '{print $1}')
+			truncate -s 0 kodi-splash.tar && truncate -s $size kodi-splash.tar
+		fi
+		if [ -e /var/tmp/kodi-splash.tar ]; then
+			cd /usr/local/share/kodi/media
+			if [ "$(readlink splash.h264)" != kodi-$KODI-1080p.h264 ]; then
+				[ -e kodi-$KODI-1080p.h264 ] && ln -fs kodi-$KODI-1080p.h264 splash.h264 || ln -fs kodi-splash-1080p.h264 splash.h264
+			fi
+			if [ "$(readlink splash.h265)" != kodi-$KODI-1080p.h265 ]; then
+				[ -e kodi-$KODI-2160p.h265 ] && ln -fs kodi-$KODI-2160p.h265 splash.h265 || ln -fs kodi-splash-2160p.h265 splash.h265
+			fi
+		fi
+		cd /usr/local/bin
+		KVER=$(dpkg-query -l | awk '/linux-image-bcm283[67]/{ print $3}')
+		KVER="${KVER%.*}"
+		[ "$(stat -c %d/%i /)" = "$(stat -Lc %d/%i /proc/1/root 2>/dev/null)" ] || chrooted=1
+		[ "$(dpkg --print-architecture)" = 'arm64' ] && APP='.arm64' || APP=''
+		[ -n "$chrooted" ] && echo "Kernelversion = $KVER, Appendix = $APP"
+		[ -L xbian-ffplay ] || mv xbian-ffplay xbian-ffplay_5.0+
+		if [ "$KVER" \> "6.0" ]; then
+			if ! LC_ALL=C wget -N --no-if-modified-since https://sourceforge.net/projects/xbian/files/xbian/xbian-ffplay_6.1+$APP 2>&1 | grep -qE "file no newer|Not Found" || [ -e /usr/local/bin/xbian-ffplay_6.1+ ]; then
+				if [ "$(readlink xbian-ffplay)" != xbian-ffplay_6.1+$APP ]; then
+					chmod +x xbian-ffplay_6.1+$APP && ln -frs xbian-ffplay_6.1+$APP xbian-ffplay
+					[ -n "$chrooted" ] && echo "xbian-ffplay linked to xbian-ffplay_6.1+$APP"
+				fi
+			fi
+		elif [ "$(readlink xbian-ffplay)" != xbian-ffplay_5.0+ ]; then
+			ln -frs xbian-ffplay_5.0+ xbian-ffplay
+		fi
+	fi
+
 fi
 
 exit 0
