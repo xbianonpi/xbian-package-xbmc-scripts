@@ -1,9 +1,9 @@
 Origin: XBian
 Package: xbian-package-xbmc-scripts
-Version: 2.3.1
+Version: 2.3.2
 Section: video
 Priority: optional
-Architecture: armhf
+Architecture: all
 Depends: xbian-package-upstart-xbmc-bridge (>=1.1.0-6), cec-utils, python3
 Replaces: xbian-package-xbmc, xbian-package-config-shell
 Breaks: xbian-package-xbmc (<<2.9-10.9), xbian-package-config-shell (<<20190101-0)
