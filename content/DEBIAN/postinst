@@ -51,7 +51,7 @@ elif [ "$1" = triggered ]; then
 			fi
 		fi
 		cd /usr/local/bin
-		KVER=$(dpkg-query -l | awk '/linux-image-bcm283[67]/{ print $3}')
+		KVER=$(dpkg-query -l | awk '/linux-image-bcm2[78]/{ print $3; exit}')
 		KVER="${KVER%.*}"
 		[ "$(stat -c %d/%i /)" = "$(stat -Lc %d/%i /proc/1/root 2>/dev/null)" ] || chrooted=1
 		[ "$(dpkg --print-architecture)" = 'arm64' ] && APP='.arm64' || APP=''
